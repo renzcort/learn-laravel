@@ -20,5 +20,25 @@ Route::get('/koding', function () {
 });
 
 Route::get('/blog', 'BlogController@index');
+// create
+Route::get('/blog/create', 'BlogController@create');
+Route::post('/blog', 'BlogController@store');
+// end create
 Route::get('/blog/{id}', 'BlogController@detail');
+// Update
+Route::get('/blog/{id}/edit', 'BlogController@edit');
+Route::put('/blog/{id}', 'BlogController@update');
+// end update
+// delete
+Route::delete('/blog/{id}', 'BlogController@destroy');
 
+
+/**
+ * Sample 2 
+ */
+
+Route::get('/pages', 'PagesController@index');
+Route::get('/pages/about', 'PagesController@about');
+Route::get('/pages/services', 'PagesController@services');
+
+Route::resource('posts', 'PostsController');

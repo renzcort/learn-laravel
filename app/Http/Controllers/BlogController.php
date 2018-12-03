@@ -45,7 +45,7 @@ class BlogController extends Controller
     $blog->delete(); */
 
     // Restore Soft Deletes
-    Blog::withTrashed()->restore();
+    // Blog::withTrashed()->restore();
 
 
     // metode eloquent get data
@@ -90,6 +90,26 @@ class BlogController extends Controller
     return view('blog/detail', ['blog' => $blog]);
   }
 
+  // create
+  public function create() {
+    return view('blog/create');
+  }
+
+  // store
+  public function store(Request $request) {
+    // get validation
+    $this->validate($request, [
+      'title'       =>  'required|min:5',
+      'description' =>  'required|min:5|max:100'
+    ]);
+
+    $blog = new Blog;
+    $blog->title        = $request->title;
+    $blog->description  = $request->description;
+    $blog->save();
+    return redirect('blog');
+  }
+
 
   // update 
   public function edit($id) {
@@ -99,5 +119,20 @@ class BlogController extends Controller
       abort(404);
     }
     return view('blog/edit', ['blog' => $blog]); 
+  }
+
+  public function update(Request $request, $id) {
+    $blog = Blog::find($id);
+    $blog->title = $request->title;
+    $blog->description = $request->description;
+    $blog->save();
+    return redirect('blog/'. $id);
+  }
+
+  // delete
+  public function destroy($id) {
+    $blog = Blog::find($id);
+    $blog->delete();
+    return redirect('blog');
   }
 }
