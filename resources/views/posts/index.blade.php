@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-8 col-sm-8">
             <h3><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h3>
-            <small>Written On {{ $post->created_at }} by {{ $post->user }} </small>
+            <small>Written On {{ $post->created_at }} by {{ $post->user->name }} </small>
           </div>
         </div>
       </div>

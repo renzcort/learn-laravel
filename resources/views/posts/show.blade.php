@@ -9,7 +9,10 @@
     {!! $post->body !!}
   </div>
   <hr>
-  <small>written on {{ $post->created_at }} by {{ $post->user->name }}</small>
+  <small>written on {{ $post->created_at }} by 
+    @if (Auth::user()->id == $post->user_id) 
+      {{ $post->user->name }}</small>
+    @endif
   <hr>
   @if (!Auth::guest())
     @if (Auth::user()->id == $post->user_id)
