@@ -44,6 +44,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        /**
+         * Rendi
+         * Add json exception
+         */
+        if ($exception instanceOf ModelNotFoundException && $request->wantsJson()) {
+          return response()->json([
+            'data' => 'resource not found'
+          ], 404);
+        }
+
         return parent::render($request, $exception);
     }
 

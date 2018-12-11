@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\Api\Article;
 
 
 /*
@@ -42,8 +42,17 @@ Route::delete('articles/{id}', function($id){
 });*/
 
 
+// list articles
 Route::get('articles', 'ArticleController@index');
-Route::get('articles/{id}', 'ArticleController@show');
-Route::post('articles', 'ArticleController@store');
-Route::put('articles/{id}', 'ArticleController@update');
-Route::delete('articles/{id}', 'ArticleController@delete');
+
+// list single article
+Route::get('article/{id}', 'ArticleController@show');
+
+// create new article
+Route::post('article', 'ArticleController@store');
+
+// update article
+Route::put('articles', 'ArticleController@store');
+
+// Delete Article
+Route::delete('articles', 'ArticleController@destroy');

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Api\Book;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,21 @@ class User extends Authenticatable
       Relation Model One To Many
      */
     public function posts() {
-      return $this->hasMany('App\Models\Post');
+      return $this->hasMany('App\Models\Post'); 
+    }
+
+    /*
+      Relation Model One To Many
+     */
+    public function books(){
+      return $this->hasMany(Book::class);
+    }
+
+    // generate Token
+    public function generateToken() {
+      $this->api_token = str_random(60);
+      $this->save();
+
+      return $this->api_token;
     }
 }

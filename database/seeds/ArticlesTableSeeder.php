@@ -15,7 +15,7 @@ class ArticlesTableSeeder extends Seeder
         //let's run truncate our existing records to start from stratch
         Article::truncate();
 
-        $faker = \Faker\Factory::create();
+        /*$faker = \Faker\Factory::create();
 
         // let's create a few article in our database 
         for ($i = 0; $i < 50; $i++) {
@@ -23,6 +23,7 @@ class ArticlesTableSeeder extends Seeder
                 'title' => $faker->sentence,
                 'body' => $faker->paragraph,
             ]);
-        }
+        }*/
+        factory(Article::class, 30)->create();
     }
 }
