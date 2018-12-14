@@ -56,3 +56,9 @@ Route::put('article', 'ArticleController@store');
 
 // Delete Article
 Route::delete('article/{id}', 'ArticleController@destroy');
+
+
+
+/*USERS API*/
+// get Users 
+Route::get('users' , 'UserController@users');

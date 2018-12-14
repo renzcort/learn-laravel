@@ -32,12 +32,11 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-      $article = $request->isMethod('put') ? Article::findOrFail($request->article_id) : new Article;
+      $article = $request->isMethod('put') ? Article::findOrFail($request->id) : new Article;
 
-      $article->id = $request->input('article_id');
-      $article->title = $request->input('article_title');
-      $article->body = $request->input('article_body');
-
+      $article->id = $request->input('id');
+      $article->title = $request->input('title');
+      $article->body = $request->input('body');
       if ($article->save()) {
         return new ArticleResource($article);
       }
