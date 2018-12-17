@@ -61,4 +61,10 @@ Route::delete('article/{id}', 'ArticleController@destroy');
 
 /*USERS API*/
 // get Users 
-Route::get('users' , 'UserController@users');
+Route::get('users' , 'Api\UserController@users');
+// Auth Register
+Route::post('auth/register', 'Api\AuthController@register');
+// Auth Login
+Route::post('auth/login', 'Api\AuthController@login');
+// show profil user
+Route::get('users/profile', 'Api\UserController@profile')->middleware('auth:api');

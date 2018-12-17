@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 // add responses 
 use App\Http\Requests;
@@ -10,6 +11,7 @@ use App\Http\Requests;
 use App\User;
 // add transformers Fractal
 use App\Transformers\UserTransformer;
+use Auth;
 
 class UserController extends Controller
 {
@@ -22,6 +24,15 @@ class UserController extends Controller
       // return response()->json($users);
       return fractal()
         ->collection($users)
+        ->transformWith(new UserTransformer)
+        ->toArray();
+    }
+
+    public function profile(user $user)
+    {
+      $user = $user->find(Auth::user()->id);
+      return fractal()
+        ->item($user)
         ->transformWith(new UserTransformer)
         ->toArray();
     }
