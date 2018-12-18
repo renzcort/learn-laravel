@@ -26,7 +26,7 @@ class UserController extends Controller
         ->collection($users)
         ->transformWith(new UserTransformer)
         ->toArray();
-    }
+    } 
 
     public function profile(user $user)
     {
@@ -34,6 +34,23 @@ class UserController extends Controller
       return fractal()
         ->item($user)
         ->transformWith(new UserTransformer)
+        ->includePostapis()
+        ->addMeta([
+          'token' =>  $user->api_token,
+        ])
         ->toArray();
     }
+
+    // edit profile
+    public function profileById(user $user, $id)
+    {
+      $user = $user->find($id);
+      return fractal()
+        ->item($user)
+        ->transformWith(new UserTransformer)
+        ->includePostapis()
+        ->toArray();
+    }
+
+
 }

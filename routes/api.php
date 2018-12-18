@@ -68,3 +68,11 @@ Route::post('auth/register', 'Api\AuthController@register');
 Route::post('auth/login', 'Api\AuthController@login');
 // show profil user
 Route::get('users/profile', 'Api\UserController@profile')->middleware('auth:api');
+// show profile by id untuk users yang memiliki credentiol
+Route::get('users/{id}', 'Api\UserController@profileById')->middleware('auth:api');
+// List Post Add
+Route::post('postapi', 'Api\PostapiController@add')->middleware('auth:api');
+// edit post
+Route::put('postapi/{postapi}', 'Api\PostapiController@update')->middleware('auth:api');
+// Delete Post
+Route::delete('postapi/{postapi}', 'Api\PostapiController@delete')->middleware('auth:api');

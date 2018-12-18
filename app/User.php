@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Api\Book;
+use App\Models\Api\PostApi;
 
 class User extends Authenticatable
 {
@@ -46,7 +47,18 @@ class User extends Authenticatable
     public function generateToken() {
       $this->api_token = str_random(60);
       $this->save();
-
       return $this->api_token;
+    }
+
+    // show post with authentification
+    public function postapis()
+    {
+      return $this->hasMany(PostApi::class);
+    }
+
+    // policy
+    public function ownsPostApi(PostApi $postapi)
+    {
+      return auth()->id() === $postapi->user->id;
     }
 }

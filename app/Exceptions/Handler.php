@@ -54,6 +54,32 @@ class Handler extends ExceptionHandler
           ], 404);
         }
 
+        // add exception if authorized 
+        if ($request->expectsJson()) {
+          if ($exception instanceOf \Illuminate\Auth\Access\AuthorizationException) {
+            return response()->json([
+              'error' =>  'unauthorized'
+            ], 401);
+          }
+
+          // if Page not found
+          if ($exception instanceOf Symfony\Component\HttpKernel\Exception) {
+            return response()->json([
+              'error' =>  'Not Found'
+            ], 404);
+          }
+
+          // if models cannot found
+          if ($exception instanceOf \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            $modelClass = explode('\\', $exception->getModel());
+
+            return response()->json([
+              'error' => end($modelClass) . 'Not Found'
+            ], 404);
+          }
+
+        }
+
         return parent::render($request, $exception);
     }
 
